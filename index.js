@@ -9,6 +9,11 @@ app.set('view engine', 'ejs');
 //declaring our views folder as 'views'
 app.set('views', path.join(__dirname, 'views'));
 
+//Middlewares
+
+//parser
+app.use(express.urlencoded());
+
 contactList = [
     {
         name: "aryan",
@@ -28,6 +33,14 @@ app.get('/', function(req, res){
         title:"My Contacts",
         contact_list : contactList
     });
+});
+
+app.post('/create-contact', function(req,res){
+    contactList.push({
+        name: req.body.name,
+        phone:req.body.phone
+    });
+    return res.redirect('/');
 });
 
 
